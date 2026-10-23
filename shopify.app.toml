@@ -1,0 +1,10 @@
+name = "MGD Barrierefrei"
+client_id = "${SHOPIFY_API_KEY}"
+application_url = "https://michael-gahn.de"
+embedded = false
+
+[access_scopes]
+scopes = ""
+
+[build]
+automatically_update_urls_on_dev = false

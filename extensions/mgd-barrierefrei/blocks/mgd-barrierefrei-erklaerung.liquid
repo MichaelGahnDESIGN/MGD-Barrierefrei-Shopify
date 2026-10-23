@@ -1,0 +1,27 @@
+<section class="mgd-a11y-statement" aria-labelledby="mgd-a11y-statement-title-{{ block.id }}">
+  <h1 id="mgd-a11y-statement-title-{{ block.id }}">Erklärung zur Barrierefreiheit</h1>
+  <p>Diese Erklärung zur Barrierefreiheit gilt für <strong>{{ block.settings.organisation | escape }}</strong>{% if block.settings.website != blank %} ({{ block.settings.website | escape }}){% endif %}. Stand: {{ block.settings.statement_date | escape }}.</p>
+  <h2>Stand der Vereinbarkeit mit den Anforderungen</h2>
+  <p>Diese Website ist nach eigener Einschätzung {{ block.settings.status | escape }}. Wir arbeiten daran, Inhalte und Funktionen verständlich und zugänglich zu gestalten.</p>
+  <h2>Nicht barrierefreie Inhalte</h2>
+  {% if block.settings.known_barriers != blank %}<p>{{ block.settings.known_barriers | escape | newline_to_br }}</p>{% else %}<p>Uns sind derzeit keine konkreten Barrieren bekannt. Diese Angabe bitte vor Veröffentlichung fachlich prüfen und bei Änderungen aktualisieren.</p>{% endif %}
+  <h2>Feedback und Kontakt</h2>
+  <p>Wenn dir Barrieren auffallen oder du Hilfe bei der Nutzung benötigst, wende dich bitte an {{ block.settings.responsible | escape }}{% if block.settings.email != blank %}: <a href="mailto:{{ block.settings.email | escape }}">{{ block.settings.email | escape }}</a>{% endif %}{% if block.settings.phone != blank %}, Telefon {{ block.settings.phone | escape }}{% endif %}.</p>
+  <p><strong>Hinweis:</strong> Dieser Text ist ein technisch erzeugter Entwurf und keine Rechtsberatung. Angaben und rechtliche Anforderungen müssen vor der Veröffentlichung geprüft werden.</p>
+</section>
+{% schema %}
+{
+  "name": "MGD Erklärung Barrierefreiheit",
+  "target": "section",
+  "settings": [
+    {"type":"text","id":"organisation","label":"Unternehmen","default":"Ihr Unternehmen"},
+    {"type":"text","id":"website","label":"Webadresse"},
+    {"type":"text","id":"statement_date","label":"Stand der Erklärung","default":"2026-10-23"},
+    {"type":"select","id":"status","label":"Eigene Einschätzung","default":"teilweise barrierefrei","options":[{"value":"teilweise barrierefrei","label":"Teilweise barrierefrei"},{"value":"vollständig barrierefrei","label":"Vollständig barrierefrei"},{"value":"noch nicht vollständig barrierefrei","label":"Noch nicht vollständig barrierefrei"}]},
+    {"type":"textarea","id":"known_barriers","label":"Bekannte Barrieren oder Ausnahmen"},
+    {"type":"text","id":"responsible","label":"Verantwortliche Person oder Stelle"},
+    {"type":"text","id":"email","label":"Kontakt-E-Mail"},
+    {"type":"text","id":"phone","label":"Telefon"}
+  ]
+}
+{% endschema %}
