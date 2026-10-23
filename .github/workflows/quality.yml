@@ -8,15 +8,21 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: JavaScript- und JSON-Prüfung
         run: node --check extensions/mgd-barrierefrei/assets/mgd-barrierefrei.js && python3 -m json.tool extensions/mgd-barrierefrei/locales/de.default.json >/dev/null
       - name: Release-Paket
         run: sh scripts/build-release.sh && unzip -t release/MGD-Barrierefrei-Shopify-1.0.0.zip
       - name: Geheimnisse prüfen
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITLEAKS_ENABLE_COMMENTS: 'false'
