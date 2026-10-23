@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: JavaScript- und JSON-Prüfung
         run: node --check extensions/mgd-barrierefrei/assets/mgd-barrierefrei.js && python3 -m json.tool extensions/mgd-barrierefrei/locales/de.default.json >/dev/null
       - name: Release-Paket
