@@ -20,7 +20,7 @@ jobs:
       - name: JavaScript- und JSON-Prüfung
         run: node --check extensions/mgd-barrierefrei/assets/mgd-barrierefrei.js && python3 -m json.tool extensions/mgd-barrierefrei/locales/de.default.json >/dev/null
       - name: Release-Paket
-        run: sh scripts/build-release.sh && unzip -t release/MGD-Barrierefrei-Shopify-1.0.0.zip
+        run: sh scripts/build-release.sh && unzip -t release/MGD-Barrierefrei-Shopify-$(tr -d "[:space:]" < VERSION).zip
       - name: Geheimnisse prüfen
         uses: gitleaks/gitleaks-action@v2
         env:

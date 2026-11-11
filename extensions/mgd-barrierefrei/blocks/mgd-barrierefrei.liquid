@@ -1,18 +1,20 @@
-{{ 'mgd-barrierefrei.css' | asset_url | stylesheet_tag }}
-<div class="mgd-a11y" data-mgd-a11y data-position="{{ block.settings.position | escape }}" style="--mgd-a11y-accent: {{ block.settings.accent_color | escape }}">
-  <button class="mgd-a11y__trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="mgd-a11y-dialog-{{ block.id }}">
-    <span aria-hidden="true">♿</span><span>{{ block.settings.button_label | escape }}</span>
-  </button>
-  <section class="mgd-a11y__dialog" id="mgd-a11y-dialog-{{ block.id }}" role="dialog" aria-modal="true" aria-label="{{ block.settings.button_label | escape }}" hidden tabindex="-1">
-    <header><h2>{{ block.settings.button_label | escape }}</h2><button type="button" class="mgd-a11y__close" aria-label="Schließen">×</button></header>
-    <p>Darstellung nur für dieses Gerät anpassen.</p>
-    <div class="mgd-a11y__actions">
-      <button type="button" data-mgd-a11y-action="contrast">Kontrast</button><button type="button" data-mgd-a11y-action="gray">Graustufen</button><button type="button" data-mgd-a11y-action="focus">Fokus</button><button type="button" data-mgd-a11y-action="font-up">Schrift +</button><button type="button" data-mgd-a11y-action="font-down">Schrift −</button><button type="button" data-mgd-a11y-action="motion">Bewegung stoppen</button><button type="button" data-mgd-a11y-action="reset">Zurücksetzen</button>
-    </div>
-    {% if block.settings.statement_url != blank %}<p><a href="{{ block.settings.statement_url }}">Erklärung zur Barrierefreiheit</a></p>{% endif %}
-    <p class="mgd-a11y__credit"><a href="https://michael-gahn.de" target="_blank" rel="noopener noreferrer">Michael-Gahn.de</a></p>
-  </section>
-</div>
+{%- comment -%} Config fürs Widget - Oberfläche baut das JS selbst im Shadow DOM {%- endcomment -%}
+{%- liquid
+  assign pos = 'left'
+  if block.settings.position == 'right'
+    assign pos = 'right'
+  endif
+  assign de = block.settings.button_label | strip_html | strip | slice: 0, 80
+  if de == 'Barrierefreiheit'
+    assign de = ''
+  endif
+  assign en = block.settings.button_label_en | strip_html | strip | slice: 0, 80
+  if en == 'Accessibility'
+    assign en = ''
+  endif
+  assign url = block.settings.statement_url | default: ''
+-%}
+<script type="application/json" id="mgd-barrierefrei-config">{"position":{{ pos | json }},"accent":{{ block.settings.accent_color | default: '#b91c1c' | json }},"lang":{{ block.settings.default_lang | default: 'auto' | json }},"theme":{{ block.settings.default_theme | default: 'auto' | json }},"labels":{"de":{{ de | json }},"en":{{ en | json }}},"statementUrl":{{ url | json }},"offset":{{ block.settings.offset | default: 0 | json }}}</script>
 <script src="{{ 'mgd-barrierefrei.js' | asset_url }}" defer></script>
 {% schema %}
 {
@@ -20,8 +22,12 @@
   "target": "body",
   "settings": [
     {"type":"select","id":"position","label":"Position","default":"left","options":[{"value":"left","label":"Unten links"},{"value":"right","label":"Unten rechts"}]},
-    {"type":"text","id":"button_label","label":"Beschriftung","default":"Barrierefreiheit"},
+    {"type":"text","id":"button_label","label":"Beschriftung Deutsch","default":"Barrierefreiheit","info":"Erscheint nur, wenn die Maus über das Symbol fährt."},
+    {"type":"text","id":"button_label_en","label":"Beschriftung Englisch","default":"Accessibility"},
+    {"type":"select","id":"default_lang","label":"Standard-Sprache","default":"auto","info":"Besucher können jederzeit selbst zwischen DE und EN wechseln.","options":[{"value":"auto","label":"Automatisch (Sprache der Seite)"},{"value":"de","label":"Deutsch"},{"value":"en","label":"Englisch"}]},
+    {"type":"select","id":"default_theme","label":"Standard-Design","default":"auto","info":"Besucher können jederzeit selbst zwischen Hell und Dunkel wechseln.","options":[{"value":"auto","label":"Automatisch (wie das Gerät)"},{"value":"light","label":"Hell"},{"value":"dark","label":"Dunkel"}]},
     {"type":"color","id":"accent_color","label":"Akzentfarbe","default":"#b91c1c"},
+    {"type":"range","id":"offset","label":"Abstand nach oben","info":"Hebt den Button an, falls er z. B. einen Chat-Button verdeckt.","min":0,"max":200,"step":4,"unit":"px","default":0},
     {"type":"url","id":"statement_url","label":"Link zur Erklärung zur Barrierefreiheit"}
   ]
 }

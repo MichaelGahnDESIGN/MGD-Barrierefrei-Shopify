@@ -5,3 +5,5 @@ Die Theme-App-Erweiterung besteht aus einem App-Embed für die Bedienhilfe und e
 - [Einrichten](Einrichten.md)
 - [Erklärung prüfen](Erklaerung-pruefen.md)
 - [Datenschutz und Sicherheit](Datenschutz-und-Sicherheit.md)
+
+- [Bedienhilfe für Besucher](Bedienhilfe.md)
