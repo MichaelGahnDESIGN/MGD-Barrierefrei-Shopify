@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 – 2026-11-14
+
+- Behoben: Shopify hat das Veröffentlichen der App abgelehnt, weil der Name des Inhaltsblocks zu lang war (Shopify erlaubt höchstens 25 Zeichen).
+- Der Block heißt jetzt **MGD Barrierefrei Info** (vorher „MGD Erklärung Barrierefreiheit“). Inhalt und Einstellungen sind gleich geblieben.
+
 ## 1.4.0 – 2026-11-14
 
 - Gemeinsame Versionsnummer **1.4.0** für alle Produkte von Michael Gahn DESIGN. So sieht man auf einen Blick, welche Fassungen zusammengehören.
