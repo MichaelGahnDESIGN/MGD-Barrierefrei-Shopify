@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.1] - 2026-11-25
+
+- Aktueller Baukasten, einheitliche Version.
+
 ## 1.4.1 – 2026-11-14
 
 - Behoben: Shopify hat das Veröffentlichen der App abgelehnt, weil der Name des Inhaltsblocks zu lang war (Shopify erlaubt höchstens 25 Zeichen).
